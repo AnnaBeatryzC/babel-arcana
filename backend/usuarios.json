@@ -1,0 +1,17 @@
+[
+  {
+    "nome": "lilo",
+    "email": "lilo@gmail.com",
+    "senha": "$2b$10$g8R1uOzhjlvXsEkSBbAtnurO73mXOFVDAzRc3PnKtmY/SaQABnwyG"
+  },
+  {
+    "nome": "ze",
+    "email": "ze@hotmail.com",
+    "senha": "$2b$10$TlEbpD/kgeNrPrDYBZF31u5oow3YWJ9rwvu4D/D0h8.FdqAOPdrHK"
+  },
+  {
+    "nome": "chico",
+    "email": "chico@uol.com.br",
+    "senha": "$2b$10$4zgnjOkLXrlUdVJjoL11s.jCR7WM9GveqGvK.tX55CCCoTLx63Nt2"
+  }
+]
