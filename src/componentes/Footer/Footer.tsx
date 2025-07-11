@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
           className={styles.d20Icon}
         />
         <p className={styles.text}>
-          Feito com muito <a href="https://github.com/leal-k/trabXDES03.git" target="_blank" rel="noopener noreferrer" className={styles.heartLink}><span className={styles.heart}>❤️</span></a>
+          Feito com muito <a href="https://github.com/AnnaBeatryzC/babel-arcana.git" target="_blank" rel="noopener noreferrer" className={styles.heartLink}><span className={styles.heart}>❤️</span></a>
         </p>
       </div>
     </footer>
