@@ -15,13 +15,25 @@
   --white: #FFFFFF;
   --dark-whithe: #ffe293;
   --black: #000000;
-}
 
-@theme inline {
+  --color-primary: var(--light-gold);
+  --color-secondary: var(--dark-gold);
+  --color-accent: var(--crimson);
+  --color-text: var(--white);
+  --color-text-secondary: var(--dark-whithe);
+  --color-border: var(--purple);
+  --color-border-secondary: var(--deep-purple);
+  --color-link: var(--gold);
+  --color-link-hover: var(--burnt-sienna);
+  --color-link-active: var(--dark-brown);
+  --color-link-visited: var(--dark-indigo);
+  --color-error: var(--crimson);
+  --color-success: var(--light-gold);
+  --color-warning: var(--dark-gold);
+  --color-info: var(--purple);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
 }
 
 @media (prefers-color-scheme: dark) {
