@@ -1,26 +1,20 @@
 [
   {
-    "id": "1752215297768",
-    "email": "maria@gmail.com",
-    "nome": "Teste",
-    "classe": "elfo",
-    "nivel": 1,
-    "raca": "Dwarf"
-  },
-  {
-    "id": "1752232211493",
-    "email": "anna@teste.com",
-    "nome": "Alteradoooo",
-    "classe": "Bardo",
-    "nivel": 2,
-    "raca": "Gnome"
-  },
-  {
-    "id": "1752233546754",
-    "email": "anna@gmail.com",
-    "nome": "outroMAgo",
-    "classe": "Mago",
-    "nivel": 1,
-    "raca": "Dragonborn"
+    "id": "1752248094321",
+    "email": "laisp@gmail.com",
+    "nome": "Primeira",
+    "classe": "Elfo",
+    "nivel": 4,
+    "raca": "Dragonborn",
+    "sistema": "dnd",
+    "atributos": {
+      "forca": 10,
+      "destreza": 10,
+      "constituicao": 10,
+      "inteligencia": 10,
+      "sabedoria": 10,
+      "carisma": 10
+    },
+    "habilidades": []
   }
 ]

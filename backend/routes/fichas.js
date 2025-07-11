@@ -77,9 +77,19 @@ router.post('/', autenticarToken, (req, res) => {
   const fichas = lerFichas();
 
   const novaFicha = {
-    id: Date.now().toString(), // futuramente UUID
+    id: Date.now().toString(),
     email: req.usuario.email,
     ...resultado.data,
+    sistema: req.body.sistema || 'dnd',  // valor padrão
+    atributos: req.body.atributos || {
+      forca: 10,
+      destreza: 10,
+      constituicao: 10,
+      inteligencia: 10,
+      sabedoria: 10,
+      carisma: 10
+    },
+    habilidades: req.body.habilidades || []
   };
 
   fichas.push(novaFicha);

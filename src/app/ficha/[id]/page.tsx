@@ -33,7 +33,7 @@ export default function FichaPage() {
   const fetchFichaData = useCallback(async (id: string) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/fichas/${id}`, {
+      const res = await fetch(`http://localhost:3002/api/fichas/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -114,8 +114,8 @@ export default function FichaPage() {
       const token = localStorage.getItem('token');
       const method = fichaId === 'nova' ? 'POST' : 'PUT';
       const url = fichaId === 'nova'
-        ? 'http://localhost:5000/api/fichas'
-        : `http://localhost:5000/api/fichas/${fichaId}`;
+        ? 'http://localhost:3002/api/fichas'
+        : `http://localhost:3002/api/fichas/${fichaId}`;
 
       const res = await fetch(url, {
         method,
@@ -148,7 +148,7 @@ export default function FichaPage() {
       try {
         const token = localStorage.getItem('token');
 
-        const res = await fetch(`http://localhost:5000/api/fichas/${fichaId}`, {
+        const res = await fetch(`http://localhost:3002/api/fichas/${fichaId}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`
@@ -231,18 +231,18 @@ export default function FichaPage() {
               </h1>
             </div>
             
-            <div className="space-x-2">
+            <div className="flex gap-3 ml-4">
               {editMode ? (
                 <>
                   <button 
                     onClick={handleSave}
-                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+                    className="bg-green-300 hover:bg-green-500 text-white px-4 py-2 rounded-lg transition-colors"
                   >
                     Salvar
                   </button>
                   <button 
                     onClick={() => setEditMode(false)}
-                    className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+                    className="bg-gray-300 hover:bg-gray-500 text-white px-4 py-2 rounded-lg transition-colors"
                   >
                     Cancelar
                   </button>
@@ -251,14 +251,14 @@ export default function FichaPage() {
                 <>
                   <button 
                     onClick={() => setEditMode(true)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                    className="bg-blue-300 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors"
                   >
                     Editar
                   </button>
                   {fichaId !== 'nova' && (
                     <button 
                       onClick={handleDelete}
-                      className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                      className="bg-red-300 hover:bg-red-500 text-white px-4 py-2 rounded-lg transition-colors"
                     >
                       Excluir
                     </button>

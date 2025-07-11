@@ -66,7 +66,7 @@ app.post('/api/login', (req, res) => {
 
     // 1º validação: se o usuário não foi encontrado
     if(!usuario){
-        return res.status(401).json({mensagem: 'Credenciais inválidas.'});
+        return res.status(401).json({mensagem: 'Credenciais inválidas'});
     }
 
     // Verifica a senha
@@ -74,7 +74,7 @@ app.post('/api/login', (req, res) => {
 
     // 2º validação: se a senha é diferente (mas o usuário existe)
     if(!senhaValida){
-        return res.status(401).json({mensagem: 'Credenciais inválidas.'});
+        return res.status(401).json({mensagem: 'Credenciais inválidas'});
     }
 
     // Gera o token JWT
@@ -92,25 +92,8 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-// Middleware para autenticar o token
-// function autenticarToken(req, res, next){
-//     const authHeader = req.headers['authorization'];
-//     const token = authHeader && authHeader.split(' ')[1];
-
-//     if(!token){
-//         return res.status(401).json({mensagem: 'Token não fornecido.'});
-//     }
-
-//     jwt.verify(token, CHAVE_ACESSO, (err, usuarioDecodificado) => {
-//         if(err){
-//             return res.status(403).json({mensagem: 'Token inválido ou expirado.'});
-//         }
-
-//         req.usuario = usuarioDecodificado; // Salva info do usuário no req para usar na rota
-//         next();
-//     });
-// }
-
+// Essa rota foi usada para testes iniciais de autenticação com JWT
+// Agora as rotas protegidas estão no arquivo routes/fichas.js
 // Rota privada: /api/fichas
 // app.get('/api/fichas', autenticarToken, (req, res) => {
 //     // Lê os usuários para pegar o nome completo (poderia vir do token também)
@@ -130,8 +113,8 @@ const fichasRouter = require('./routes/fichas');
 app.use('/api/fichas', fichasRouter);
 
 // Inicia o servidor
-app.listen(5000, () => {
-    console.log('Servidor rodando na porta 5000');
+app.listen(3002, () => {
+    console.log('Servidor rodando na porta 3002');
 });
 
 // Biblioteca 'jsonwebtoken' (JWT):

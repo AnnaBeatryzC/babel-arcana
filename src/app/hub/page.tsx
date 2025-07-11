@@ -33,7 +33,7 @@ export default function HubPage() {
   const fetchUserFichas = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/fichas', {
+      const res = await fetch('http://localhost:3002/api/fichas', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -94,20 +94,20 @@ export default function HubPage() {
             <h1 className="text-4xl font-bold text-black">
               Suas fichas, {user?.nome || 'Usuário'}!
             </h1>
-            <div className="space-x-4">
-              <Link 
-                href="/"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-              >
-                Início
-              </Link>
-              <button 
-                onClick={handleLogout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
-              >
-                Sair
-              </button>
-            </div>
+              <div className="flex gap-3 ml-4">
+                <Link 
+                  href="/"
+                  className="bg-blue-300 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors"
+                >
+                  Início
+                </Link>
+                <button 
+                  onClick={handleLogout}
+                  className="bg-red-300 hover:bg-red-500 text-white px-4 py-2 rounded-lg transition-colors"
+                >
+                  Sair
+                </button>
+              </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
