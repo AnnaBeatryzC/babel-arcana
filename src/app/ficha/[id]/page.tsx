@@ -278,14 +278,11 @@ export default function FichaPage() {
                   <label className="block text-gray-800 mb-1">Sistema:</label>
                   {editMode ? (
                     <select
-                      value={ficha.sistema}
-                      onChange={(e) => updateFicha('sistema', e.target.value)}
-                      className="w-full bg-white/10 text-black px-3 py-2 rounded border border-gray-600 outline-none"
+                      defaultValue="dnd"
+                      disabled
+                      className="w-full bg-white/10 text-black px-3 py-2 rounded border border-gray-600 outline-none cursor-not-allowed"
                     >
                       <option value="dnd">D&D 5e</option>
-                      <option value="cyberpunk">Cyberpunk 2020</option>
-                      <option value="cthulhu">Call of Cthulhu</option>
-                      <option value="vampiro">Vampiro: A Máscara</option>
                     </select>
                   ) : (
                     <p className="text-black">{ficha.sistema}</p>

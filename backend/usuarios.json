@@ -33,5 +33,10 @@
     "nome": "Lais",
     "email": "laisp@gmail.com",
     "senha": "$2b$10$PU7vHJSImz3OGgnyH510FOva5fFnQgx5uaRa6xT5qZYyvlPkauXuC"
+  },
+  {
+    "nome": "guba",
+    "email": "guba@hotmail.com",
+    "senha": "$2b$10$Bq2A5cwTcV1vS9Z9pZlSI.Wl6u8pIMl5JTcPOgZuP9f6M.tvzP1km"
   }
 ]
