@@ -36,7 +36,7 @@ app.post('/api/cadastro', (req, res) => {
         const usuarioExistente = usuarios.find((u) => u.email === email);
 
         if(usuarioExistente){
-            return res.status(409).json({mensagem: 'Email já cadastrado.'});
+            return res.status(409).json({mensagem: 'Há um erro com essas credenciais.'});
         }
 
         const senhaCriptografada = bcrypt.hashSync(senha, 10);
@@ -82,7 +82,7 @@ app.post('/api/login', (req, res) => {
 
     // Login deu certo - retorna token e dados do usuário
     res.json({
-        mensagem: 'Login deu certo.', 
+        mensagem: 'Sucesso.', 
         token,
         user: {
             id: usuario.email, // usando email como ID temporário
@@ -91,40 +91,6 @@ app.post('/api/login', (req, res) => {
         }
     });
 });
-
-// Middleware para autenticar o token
-// function autenticarToken(req, res, next){
-//     const authHeader = req.headers['authorization'];
-//     const token = authHeader && authHeader.split(' ')[1];
-
-//     if(!token){
-//         return res.status(401).json({mensagem: 'Token não fornecido.'});
-//     }
-
-//     jwt.verify(token, CHAVE_ACESSO, (err, usuarioDecodificado) => {
-//         if(err){
-//             return res.status(403).json({mensagem: 'Token inválido ou expirado.'});
-//         }
-
-//         req.usuario = usuarioDecodificado; // Salva info do usuário no req para usar na rota
-//         next();
-//     });
-// }
-
-// Rota privada: /api/fichas
-// app.get('/api/fichas', autenticarToken, (req, res) => {
-//     // Lê os usuários para pegar o nome completo (poderia vir do token também)
-//     const usuarios = JSON.parse(fs.readFileSync('usuarios.json'));
-//     const usuario = usuarios.find((u) => u.email === req.usuario.email);
-
-//     if(!usuario){
-//         return res.status(404).json({mensagem: 'Usuário não encontrado.'});
-//     }
-
-//     res.json({
-//         nome: usuario.nome,
-//     });
-// });
 
 const fichasRouter = require('./routes/fichas');
 app.use('/api/fichas', fichasRouter);

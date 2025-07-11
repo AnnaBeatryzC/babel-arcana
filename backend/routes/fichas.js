@@ -39,23 +39,7 @@ router.get('/:id', autenticarToken, (req, res) => {
 
 // Criar ficha
 router.post('/', autenticarToken, (req, res) => {
-    // const { nome, classe, nivel, raca } = req.body;
-
-    // if (!nome || !classe || !nivel || !raca) {
-    //     return res.status(400).json({ mensagem: 'Todos os campos são obrigatórios.' });
-    // }
-
-    // const fichas = lerFichas();
-    // const novaFicha = {
-    //     id: Date.now().toString(),
-    //     email: req.usuario.email,
-    //     nome,
-    //     classe,
-    //     nivel,
-    //     raca
-    // };
-
-    // fichas.push(novaFicha);
+    // Validação dos dados da ficha
     // salvarFichas(fichas);
 
     // res.status(201).json(novaFicha);
@@ -76,10 +60,26 @@ router.post('/', autenticarToken, (req, res) => {
 
   const fichas = lerFichas();
 
+  // const novaFicha = {
+  //   id: Date.now().toString(), // futuramente UUID
+  //   email: req.usuario.email,
+  //   ...resultado.data,
+  // };
+
   const novaFicha = {
-    id: Date.now().toString(), // futuramente UUID
+    id: Date.now().toString(),
     email: req.usuario.email,
     ...resultado.data,
+    sistema: req.body.sistema || 'dnd',  // valor padrão
+    atributos: req.body.atributos || {
+      forca: 10,
+      destreza: 10,
+      constituicao: 10,
+      inteligencia: 10,
+      sabedoria: 10,
+      carisma: 10
+    },
+    habilidades: req.body.habilidades || []
   };
 
   fichas.push(novaFicha);

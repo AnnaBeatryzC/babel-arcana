@@ -9,6 +9,7 @@ import { loginSchema, registerSchema } from '@/lib/schemas';
 import { ZodError, ZodIssue } from 'zod';
 
 export default function LoginForm() {
+  const [loginError, setLoginError] = useState('');
   const [isRegister, setIsRegister] = useState(false);
   const [formData, setFormData] = useState({
     nome: '',
@@ -92,7 +93,7 @@ export default function LoginForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.mensagem || 'Erro ao enviar dados');
+        setLoginError(data.mensagem || 'Erro ao enviar dados');
         return;
       }
 
@@ -110,7 +111,7 @@ export default function LoginForm() {
         router.push('/hub');
       }
     } catch (err) {
-      alert('Erro de rede ao enviar dados.');
+      setLoginError('Erro de rede ao enviar dados.');
       console.error(err);
     }
   };
@@ -158,6 +159,9 @@ export default function LoginForm() {
           <div className={styles.inputGroup}>
             <input type="password" id="senha" placeholder="Senha" value={formData.senha} onChange={handleInputChange} autoComplete={isRegister ? "new-password" : "current-password"} className={styles.input} />
             {errors.senha && <p className={styles.error}>{errors.senha}</p>}
+            {!isRegister && loginError && (
+              <p className={styles.error}>{loginError.replace('.', '')}</p>
+            )}
           </div>
 
           {isRegister && (
@@ -165,6 +169,10 @@ export default function LoginForm() {
               <input type="password" id="confirmarSenha" placeholder="Confirmar Senha" value={formData.confirmarSenha} onChange={handleInputChange} autoComplete="new-password" className={styles.input} />
               {errors.confirmarSenha && <p className={styles.error}>{errors.confirmarSenha}</p>}
             </div>
+          )}
+
+          {loginError && (
+            <p className={styles.error}>{loginError.replace('.', '')}</p>
           )}
 
           <button type="submit" className={styles.submitButton}>

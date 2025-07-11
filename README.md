@@ -4,7 +4,7 @@ Este é um projeto desenvolvido em [Next.js](https://nextjs.org) com backend em 
 
 ## Descrição do Projeto
 
-A aplicação **Babel Arcana** permite a criação, visualização, edição e exclusão de fichas de RPG. Os usuários podem se cadastrar, fazer login e gerenciar suas fichas de forma segura e centralizada. O sistema oferece integração com uma API externa de D&D ([D&D 5e API](https://www.dnd5eapi.co)) para sugestão de classes e raças.
+A aplicação **Babel Arcana** permite a criação, visualização, edição e exclusão de fichas de RPG. Os usuários podem se cadastrar, fazer login e gerenciar suas fichas de forma segura e centralizada. O sistema oferece integração com uma API externa de D&D ([D&D 5e API](https://www.dnd5eapi.co)) para sugestão de raças.
 
 ## Tecnologias Utilizadas
 

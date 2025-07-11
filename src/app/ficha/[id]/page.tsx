@@ -217,7 +217,7 @@ export default function FichaPage() {
                 className="font-['Cinzel'] font-bold text-lg px-5 py-3 rounded-md shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
                 style={{
                   backgroundColor: 'var(--gold)',
-                  color: 'var(--dark-brown)',
+                  color: 'var(--dark-gold)',
                   boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.4)'
                 }}
                 onMouseEnter={(e) => {
@@ -235,7 +235,7 @@ export default function FichaPage() {
                     type="text"
                     value={ficha.nome}
                     onChange={(e) => updateFicha('nome', e.target.value)}
-                    className="bg-white/10 text-black px-3 py-1 rounded border-none outline-none"
+                    className="bg-white/10 px-3 py-1 rounded border-none outline-none"style={{ color: 'var(--gold)' }}
                     placeholder="Nome da ficha"
                   />
                   : ficha.nome
@@ -248,43 +248,35 @@ export default function FichaPage() {
                 <>
                   <button 
                     onClick={handleSave}
-<<<<<<< Updated upstream
-                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
-=======
                     className="font-['Cinzel'] font-bold text-lg px-5 py-3 rounded-md shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
                     style={{
-                      backgroundColor: '#10b981', // green-500
+                      backgroundColor: 'var(--deep-purple)', 
                       color: 'var(--white)',
                       boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.4)'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#059669'; // green-600
+                      e.currentTarget.style.backgroundColor = 'var(--dark-indigo)'; 
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#10b981';
+                      e.currentTarget.style.backgroundColor = 'var(--deep-purple)';
                     }}
->>>>>>> Stashed changes
                   >
                     Salvar
                   </button>
                   <button 
                     onClick={() => setEditMode(false)}
-<<<<<<< Updated upstream
-                    className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
-=======
                     className="font-['Cinzel'] font-bold text-lg px-5 py-3 rounded-md shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
                     style={{
-                      backgroundColor: 'var(--gold)',
+                      backgroundColor: 'var(--crimson)',
                       color: 'var(--dark-brown)',
                       boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.4)'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = 'var(--light-gold)';
+                      e.currentTarget.style.backgroundColor = '#c93232ff'; // dark red
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'var(--gold)';
+                      e.currentTarget.style.backgroundColor = 'var(--crimson)';
                     }}
->>>>>>> Stashed changes
                   >
                     Cancelar
                   </button>
@@ -293,31 +285,24 @@ export default function FichaPage() {
                 <>
                   <button 
                     onClick={() => setEditMode(true)}
-<<<<<<< Updated upstream
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-=======
                     className="font-['Cinzel'] font-bold text-lg px-5 py-3 rounded-md shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
                     style={{
-                      backgroundColor: '#3b82f6', // blue-500
+                      backgroundColor: 'var(--gold)', // blue-500
                       color: 'var(--white)',
                       boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.4)'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#2563eb'; // blue-600
+                      e.currentTarget.style.backgroundColor = 'var(--light-gold)'; 
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#3b82f6';
+                      e.currentTarget.style.backgroundColor = 'var(--gold)';
                     }}
->>>>>>> Stashed changes
                   >
                     Editar
                   </button>
                   {fichaId !== 'nova' && (
                     <button 
                       onClick={handleDelete}
-<<<<<<< Updated upstream
-                      className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
-=======
                       className="font-['Cinzel'] font-bold text-lg px-5 py-3 rounded-md shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
                       style={{
                         backgroundColor: 'var(--crimson)',
@@ -325,12 +310,11 @@ export default function FichaPage() {
                         boxShadow: '2px 2px 6px rgba(0, 0, 0, 0.4)'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#ff4757';
+                        e.currentTarget.style.backgroundColor = '#e62636ff';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.backgroundColor = 'var(--crimson)';
                       }}
->>>>>>> Stashed changes
                     >
                       Excluir
                     </button>
