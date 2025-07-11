@@ -12,5 +12,7 @@
   text-align: center;
   width: 50%;
   margin: auto;
-  height: 55vh;
+  /* height: 80vh; */
+  min-height: fit-content;
+  min-width: fit-content;
 }

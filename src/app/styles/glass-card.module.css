@@ -3,7 +3,7 @@
 .glassCard {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  padding: 20px;
+  padding: 2rem;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -13,5 +13,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  min-width: auto;
+  min-height: auto;
   gap: 1rem;
 }
