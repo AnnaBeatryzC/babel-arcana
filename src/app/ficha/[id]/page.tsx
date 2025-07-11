@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import Footer from '@/componentes/Footer/Footer';
@@ -28,6 +28,30 @@ export default function FichaPage() {
   const router = useRouter();
   const params = useParams();
   const fichaId = params.id as string;
+
+  const fetchFichaData = useCallback(async (id: string) => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`http://localhost:5000/api/fichas/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (!res.ok) {
+        throw new Error('Ficha não encontrada ou não autorizada');
+      }
+
+      const fichaData = await res.json();
+      setFicha(fichaData);
+    } catch (error) {
+      console.error('Erro ao buscar ficha:', error);
+      alert('Erro ao carregar ficha.');
+      router.push('/hub');
+    } finally {
+      setLoading(false);
+    }
+  }, [router]);
 
   useEffect(() => {
     // Verifica se o usuário está logado
@@ -80,31 +104,7 @@ export default function FichaPage() {
     fetchRacas();
 
     fetchData();
-  }, [fichaId, router]);
-
-  const fetchFichaData = async (id: string) => {
-    try {
-      const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/fichas/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      if (!res.ok) {
-        throw new Error('Ficha não encontrada ou não autorizada');
-      }
-
-      const fichaData = await res.json();
-      setFicha(fichaData);
-    } catch (error) {
-      console.error('Erro ao buscar ficha:', error);
-      alert('Erro ao carregar ficha.');
-      router.push('/hub');
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [fichaId, router, fetchFichaData]);
 
   const handleSave = async () => {
     if (!ficha) return;

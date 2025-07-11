@@ -1,8 +1,6 @@
 import styles from './NotFound.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
 
 export default function NotFound() {
   return (

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/componentes/auth/AuthProvider';
 import AuthImage from './AuthImage';
@@ -17,7 +16,7 @@ export default function LoginForm() {
     senha: '',
     confirmarSenha: ''
   });
-  const [errors, setErrors] = useState<any>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const router = useRouter();
   const pathname = usePathname();
   const { login, isAuthenticated } = useAuth();
