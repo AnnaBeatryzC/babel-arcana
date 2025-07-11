@@ -45,8 +45,6 @@
 
 body {
   background: radial-gradient(circle at 30% 30%, #431252, #1a0e26 80%);
-  color: var(--white);
-  font-family: 'Cinzel', serif;
 }
 
 /* *{

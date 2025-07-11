@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import Footer from '@/componentes/Footer/Footer';
+import GlassCard from '@/componentes/GlassCard/GlassCard';
 
 interface FichaDetalhes {
   id: string;
@@ -207,182 +208,183 @@ export default function FichaPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4 flex flex-col">
       <div className="max-w-4xl mx-auto flex-grow">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8 pt-8">
-          <div className="flex items-center space-x-4">
-            <Link 
-              href="/hub"
-              className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              ← Voltar
-            </Link>
-            <h1 className="text-3xl font-bold text-white">
-              {editMode ? 
-                <input
-                  type="text"
-                  value={ficha.nome}
-                  onChange={(e) => updateFicha('nome', e.target.value)}
-                  className="bg-white/10 text-white px-3 py-1 rounded border-none outline-none"
-                  placeholder="Nome da ficha"
-                />
-                : ficha.nome
-              }
-            </h1>
-          </div>
-          
-          <div className="space-x-2">
-            {editMode ? (
-              <>
-                <button 
-                  onClick={handleSave}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
-                >
-                  Salvar
-                </button>
-                <button 
-                  onClick={() => setEditMode(false)}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
-                >
-                  Cancelar
-                </button>
-              </>
-            ) : (
-              <>
-                <button 
-                  onClick={() => setEditMode(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-                >
-                  Editar
-                </button>
-                {fichaId !== 'nova' && (
-                  <button 
-                    onClick={handleDelete}
-                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
-                  >
-                    Excluir
-                  </button>
-                )}
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Conteúdo da Ficha */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Informações Básicas */}
-          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-            <h2 className="text-xl font-bold text-white mb-4">Informações Básicas</h2>
-            <div className="space-y-3">
-              <div>
-                <label className="block text-gray-300 mb-1">Sistema:</label>
-                {editMode ? (
-                  <select
-                    value={ficha.sistema}
-                    onChange={(e) => updateFicha('sistema', e.target.value)}
-                    className="w-full bg-white/10 text-white px-3 py-2 rounded border border-gray-600 outline-none"
-                  >
-                    <option value="dnd">D&D 5e</option>
-                    <option value="cyberpunk">Cyberpunk 2020</option>
-                    <option value="cthulhu">Call of Cthulhu</option>
-                    <option value="vampiro">Vampiro: A Máscara</option>
-                  </select>
-                ) : (
-                  <p className="text-white">{ficha.sistema}</p>
-                )}
-              </div>
-              
-              {ficha.sistema === 'dnd' && (
+        <GlassCard className="p-8">
+          <div className="flex justify-between items-center mb-8 pt-8">
+            <div className="flex items-center space-x-4">
+              <Link 
+                href="/hub"
+                className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+              >
+                ← Voltar
+              </Link>
+              <h1 className="text-3xl font-bold text-black">
+                {editMode ? 
+                  <input
+                    type="text"
+                    value={ficha.nome}
+                    onChange={(e) => updateFicha('nome', e.target.value)}
+                    className="bg-white/10 text-black px-3 py-1 rounded border-none outline-none"
+                    placeholder="Nome da ficha"
+                  />
+                  : ficha.nome
+                }
+              </h1>
+            </div>
+            
+            <div className="space-x-2">
+              {editMode ? (
                 <>
-                  <div>
-                    <label className="block text-gray-300 mb-1">Nível:</label>
-                    {editMode ? (
-                      <input
-                        type="number"
-                        value={ficha.nivel || 1}
-                        onChange={(e) => updateFicha('nivel', parseInt(e.target.value))}
-                        className="w-full bg-white/10 text-white px-3 py-2 rounded border border-gray-600 outline-none"
-                      />
-                    ) : (
-                      <p className="text-white">{ficha.nivel}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-gray-300 mb-1">Classe:</label>
-                    {editMode ? (
-                      <input
-                        type="text"
-                        value={ficha.classe || ''}
-                        onChange={(e) => updateFicha('classe', e.target.value)}
-                        className="w-full bg-white/10 text-white px-3 py-2 rounded border border-gray-600 outline-none"
-                      />
-                    ) : (
-                      <p className="text-white">{ficha.classe}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-gray-300 mb-1">Raça:</label>
-                    {editMode ? (
-                      <select
-                        value={ficha.raca || ''}
-                        onChange={(e) => updateFicha('raca', e.target.value)}
-                        className="w-full bg-white/10 text-white px-3 py-2 rounded border border-gray-600 outline-none"
-                      >
-                        <option value="">Selecione uma raça</option>
-                        {racasDisponiveis.map((raca) => (
-                          <option key={raca} value={raca}>
-                            {raca}
-                          </option>
-                        ))}
-                      </select>
-                    ) : (
-                      <p className="text-white">{ficha.raca}</p>
-                    )}
-                  </div>
+                  <button 
+                    onClick={handleSave}
+                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  >
+                    Salvar
+                  </button>
+                  <button 
+                    onClick={() => setEditMode(false)}
+                    className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  >
+                    Cancelar
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    onClick={() => setEditMode(true)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  >
+                    Editar
+                  </button>
+                  {fichaId !== 'nova' && (
+                    <button 
+                      onClick={handleDelete}
+                      className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                    >
+                      Excluir
+                    </button>
+                  )}
                 </>
               )}
             </div>
           </div>
 
-          {/* Atributos */}
-          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-            <h2 className="text-xl font-bold text-white mb-4">Atributos</h2>
-            <div className="grid grid-cols-2 gap-3">
-              {ficha.atributos && Object.entries(ficha.atributos).map(([atributo, valor]) => (
-                <div key={atributo}>
-                  <label className="block text-gray-300 mb-1 capitalize">{atributo}:</label>
+          {/* Conteúdo da Ficha */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Informações Básicas */}
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
+              <h2 className="text-xl font-bold text-black mb-4">Informações Básicas</h2>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-gray-800 mb-1">Sistema:</label>
                   {editMode ? (
-                    <input
-                      type="number"
-                      value={valor}
-                      onChange={(e) => updateAtributo(atributo, parseInt(e.target.value))}
-                      className="w-full bg-white/10 text-white px-3 py-2 rounded border border-gray-600 outline-none"
-                    />
+                    <select
+                      value={ficha.sistema}
+                      onChange={(e) => updateFicha('sistema', e.target.value)}
+                      className="w-full bg-white/10 text-black px-3 py-2 rounded border border-gray-600 outline-none"
+                    >
+                      <option value="dnd">D&D 5e</option>
+                      <option value="cyberpunk">Cyberpunk 2020</option>
+                      <option value="cthulhu">Call of Cthulhu</option>
+                      <option value="vampiro">Vampiro: A Máscara</option>
+                    </select>
                   ) : (
-                    <p className="text-white text-lg font-bold">{valor}</p>
+                    <p className="text-black">{ficha.sistema}</p>
                   )}
                 </div>
-              ))}
+                
+                {ficha.sistema === 'dnd' && (
+                  <>
+                    <div>
+                      <label className="block text-gray-800 mb-1">Nível:</label>
+                      {editMode ? (
+                        <input
+                          type="number"
+                          value={ficha.nivel || 1}
+                          onChange={(e) => updateFicha('nivel', parseInt(e.target.value))}
+                          className="w-full bg-white/10 text-black px-3 py-2 rounded border border-gray-600 outline-none"
+                        />
+                      ) : (
+                        <p className="text-black">{ficha.nivel}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-gray-800 mb-1">Classe:</label>
+                      {editMode ? (
+                        <input
+                          type="text"
+                          value={ficha.classe || ''}
+                          onChange={(e) => updateFicha('classe', e.target.value)}
+                          className="w-full bg-white/10 text-black px-3 py-2 rounded border border-gray-600 outline-none"
+                        />
+                      ) : (
+                        <p className="text-black">{ficha.classe}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-gray-800 mb-1">Raça:</label>
+                      {editMode ? (
+                        <select
+                          value={ficha.raca || ''}
+                          onChange={(e) => updateFicha('raca', e.target.value)}
+                          className="w-full bg-white/10 text-black px-3 py-2 rounded border border-gray-600 outline-none"
+                        >
+                          <option value="">Selecione uma raça</option>
+                          {racasDisponiveis.map((raca) => (
+                            <option key={raca} value={raca}>
+                              {raca}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <p className="text-black">{ficha.raca}</p>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* Habilidades */}
-          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 lg:col-span-2">
-            <h2 className="text-xl font-bold text-white mb-4">Habilidades</h2>
-            <div className="flex flex-wrap gap-2">
-              {ficha.habilidades?.map((habilidade, index) => (
-                <span
-                  key={index}
-                  className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm"
-                >
-                  {habilidade}
-                </span>
-              ))}
-              {(!ficha.habilidades || ficha.habilidades.length === 0) && (
-                <p className="text-gray-400">Nenhuma habilidade cadastrada</p>
-              )}
+            {/* Atributos */}
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
+              <h2 className="text-xl font-bold text-black mb-4">Atributos</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {ficha.atributos && Object.entries(ficha.atributos).map(([atributo, valor]) => (
+                  <div key={atributo}>
+                    <label className="block text-gray-800 mb-1 capitalize">{atributo}:</label>
+                    {editMode ? (
+                      <input
+                        type="number"
+                        value={valor}
+                        onChange={(e) => updateAtributo(atributo, parseInt(e.target.value))}
+                        className="w-full bg-white/10 text-black px-3 py-2 rounded border border-gray-600 outline-none"
+                      />
+                    ) : (
+                      <p className="text-black text-lg font-bold">{valor}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Habilidades */}
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 lg:col-span-2">
+              <h2 className="text-xl font-bold text-black mb-4">Habilidades</h2>
+              <div className="flex flex-wrap gap-2">
+                {ficha.habilidades?.map((habilidade, index) => (
+                  <span
+                    key={index}
+                    className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm"
+                  >
+                    {habilidade}
+                  </span>
+                ))}
+                {(!ficha.habilidades || ficha.habilidades.length === 0) && (
+                  <p className="text-gray-800">Nenhuma habilidade cadastrada</p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </GlassCard>
       </div>
       <Footer />
     </div>

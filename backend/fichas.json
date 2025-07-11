@@ -14,5 +14,13 @@
     "classe": "Bardo",
     "nivel": 2,
     "raca": "Gnome"
+  },
+  {
+    "id": "1752233546754",
+    "email": "anna@gmail.com",
+    "nome": "outroMAgo",
+    "classe": "Mago",
+    "nivel": 1,
+    "raca": "Dragonborn"
   }
 ]

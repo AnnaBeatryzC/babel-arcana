@@ -100,10 +100,11 @@ export default function LoginForm() {
         alert('Cadastro realizado com sucesso! Faça login.');
         router.push('/login');
       } else {
+        // Para login, usamos os dados retornados pelo backend
         const userData = {
-          id: 'temp-id',
-          nome: formData.nome || 'Usuário',
-          email: formData.email
+          id: data.user.id,
+          nome: data.user.nome,
+          email: data.user.email
         };
         login(data.token, userData);
         router.push('/hub');

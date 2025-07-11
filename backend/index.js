@@ -80,8 +80,16 @@ app.post('/api/login', (req, res) => {
     // Gera o token JWT
     const token = jwt.sign({email: usuario.email}, CHAVE_ACESSO, {expiresIn: '1h'});
 
-    // Login deu certo
-    res.json({mensagem: 'Login deu certo.', token});
+    // Login deu certo - retorna token e dados do usuário
+    res.json({
+        mensagem: 'Login deu certo.', 
+        token,
+        user: {
+            id: usuario.email, // usando email como ID temporário
+            nome: usuario.nome,
+            email: usuario.email
+        }
+    });
 });
 
 // Middleware para autenticar o token
