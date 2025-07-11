@@ -6,6 +6,8 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/componentes/auth/AuthProvider';
 import AuthImage from './AuthImage';
 import styles from './loginForm.module.css';
+import { loginSchema, registerSchema } from '@/lib/schemas';
+import { ZodError } from 'zod';
 
 export default function LoginForm() {
   const [isRegister, setIsRegister] = useState(false);
@@ -15,6 +17,7 @@ export default function LoginForm() {
     senha: '',
     confirmarSenha: ''
   });
+  const [errors, setErrors] = useState<any>({});
   const router = useRouter();
   const pathname = usePathname();
   const { login, isAuthenticated } = useAuth();
@@ -33,6 +36,7 @@ export default function LoginForm() {
 
   const handleToggleMode = (register: boolean) => {
     setIsRegister(register);
+    setErrors({});
     const path = register ? '/register' : '/login';
     router.push(path);
   };
@@ -44,21 +48,23 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
 
-    if (!formData.email || !formData.senha) {
-      alert('Por favor, preencha todos os campos obrigatórios');
+    const schema = isRegister ? registerSchema : loginSchema;
+    try {
+      schema.parse(formData);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const fieldErrors: { [key: string]: string } = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            fieldErrors[err.path[0].toString()] = err.message;
+          }
+        });
+        setErrors(fieldErrors);
+        return;
+      }
       return;
-    }
-
-    if (isRegister) {
-      if (!formData.nome) {
-        alert('Por favor, preencha o nome');
-        return;
-      }
-      if (formData.senha !== formData.confirmarSenha) {
-        alert('As senhas não coincidem');
-        return;
-      }
     }
 
     try {
@@ -136,17 +142,29 @@ export default function LoginForm() {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form} noValidate>
           {isRegister && (
-            <input type="text" id="nome" placeholder="Nome" value={formData.nome} onChange={handleInputChange} autoComplete="name" className={styles.input} />
+            <div className={styles.inputGroup}>
+              <input type="text" id="nome" placeholder="Nome" value={formData.nome} onChange={handleInputChange} autoComplete="name" className={styles.input} />
+              {errors.nome && <p className={styles.error}>{errors.nome}</p>}
+            </div>
           )}
 
-          <input type="email" id="email" placeholder="Email" value={formData.email} onChange={handleInputChange} autoComplete="email" className={styles.input} />
+          <div className={styles.inputGroup}>
+            <input type="email" id="email" placeholder="Email" value={formData.email} onChange={handleInputChange} autoComplete="email" className={styles.input} />
+            {errors.email && <p className={styles.error}>{errors.email}</p>}
+          </div>
 
-          <input type="password" id="senha" placeholder="Senha" value={formData.senha} onChange={handleInputChange} autoComplete={isRegister ? "new-password" : "current-password"} className={styles.input} />
+          <div className={styles.inputGroup}>
+            <input type="password" id="senha" placeholder="Senha" value={formData.senha} onChange={handleInputChange} autoComplete={isRegister ? "new-password" : "current-password"} className={styles.input} />
+            {errors.senha && <p className={styles.error}>{errors.senha}</p>}
+          </div>
 
           {isRegister && (
-            <input type="password" id="confirmarSenha" placeholder="Confirmar Senha" value={formData.confirmarSenha} onChange={handleInputChange} autoComplete="new-password" className={styles.input} />
+            <div className={styles.inputGroup}>
+              <input type="password" id="confirmarSenha" placeholder="Confirmar Senha" value={formData.confirmarSenha} onChange={handleInputChange} autoComplete="new-password" className={styles.input} />
+              {errors.confirmarSenha && <p className={styles.error}>{errors.confirmarSenha}</p>}
+            </div>
           )}
 
           <button type="submit" className={styles.submitButton}>

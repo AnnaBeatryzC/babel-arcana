@@ -24,6 +24,19 @@ router.get('/', autenticarToken, (req, res) => {
     res.json(fichasDoUsuario);
 });
 
+// Detalhes da ficha
+router.get('/:id', autenticarToken, (req, res) => {
+    const { id } = req.params;
+    const fichas = lerFichas();
+    const ficha = fichas.find(f => f.id === id && f.email === req.usuario.email);
+
+    if (!ficha) {
+        return res.status(404).json({ mensagem: 'Ficha não encontrada.' });
+    }
+
+    res.json(ficha);
+});
+
 // Criar ficha
 router.post('/', autenticarToken, (req, res) => {
     // const { nome, classe, nivel, raca } = req.body;
@@ -77,51 +90,20 @@ router.post('/', autenticarToken, (req, res) => {
 
 // Atualizar ficha
 router.put('/:id', autenticarToken, (req, res) => {
-    // const { id } = req.params;
-    // const { nome, classe, nivel, raca } = req.body;
+    const { id } = req.params;
+    const { nome, classe, nivel, raca } = req.body;
 
-    // const fichas = lerFichas();
-    // const index = fichas.findIndex(f => f.id === id && f.email === req.usuario.email);
+    const fichas = lerFichas();
+    const index = fichas.findIndex(f => f.id === id && f.email === req.usuario.email);
 
-    // if (index === -1) {
-    //     return res.status(404).json({ mensagem: 'Ficha não encontrada.' });
-    // }
+    if (index === -1) {
+        return res.status(404).json({ mensagem: 'Ficha não encontrada.' });
+    }
 
-    // fichas[index] = { ...fichas[index], nome, classe, nivel, raca };
-    // salvarFichas(fichas);
+    fichas[index] = { ...fichas[index], nome, classe, nivel, raca };
+    salvarFichas(fichas);
 
-    // res.json(fichas[index]);
-     const { id } = req.params;
-
-  // Se o nivel vier como string do JSON, converta pra número antes ou ajuste schema (mais comum é enviar número)
-  // Se não, pode fazer parseInt(req.body.nivel) antes de validar
-
-  const parsedNivel = Number(req.body.nivel);
-  const dadosParaValidar = {
-    nome: req.body.nome,
-    classe: req.body.classe,
-    nivel: parsedNivel,
-    raca: req.body.raca,
-  };
-
-  const resultado = fichaSchema.safeParse(dadosParaValidar);
-
-  if (!resultado.success) {
-    const erros = resultado.error.errors.map(e => e.message).join(', ');
-    return res.status(400).json({ mensagem: 'Dados inválidos: ' + erros });
-  }
-
-  const fichas = lerFichas();
-  const index = fichas.findIndex(f => f.id === id && f.email === req.usuario.email);
-
-  if (index === -1) {
-    return res.status(404).json({ mensagem: 'Ficha não encontrada.' });
-  }
-
-  fichas[index] = { ...fichas[index], ...resultado.data };
-  salvarFichas(fichas);
-
-  res.json(fichas[index]);
+    res.json(fichas[index]);
 });
 
 // Remover ficha
@@ -135,8 +117,7 @@ router.delete('/:id', autenticarToken, (req, res) => {
         return res.status(404).json({ mensagem: 'Ficha não encontrada.' });
     }
 
-    // fichas = fichas.filter(f => f.id !== id);
-    fichas = fichas.filter(f => !(f.id === id && f.email === req.usuario.email));
+    fichas = fichas.filter(f => f.id !== id);
     salvarFichas(fichas);
 
     res.status(204).send();

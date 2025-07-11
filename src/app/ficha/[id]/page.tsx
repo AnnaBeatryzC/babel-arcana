@@ -84,55 +84,25 @@ export default function FichaPage() {
 
   const fetchFichaData = async (id: string) => {
     try {
-      // Dados mockados - substitua pela API real
-      const fichasMock: { [key: string]: FichaDetalhes } = {
-        '1': {
-          id: '1',
-          nome: 'D&D - Teste',
-          sistema: 'dnd',
-          nivel: 5,
-          classe: 'Maga',
-          raca: 'Elfa',
-          atributos: {
-            forca: 8,
-            destreza: 14,
-            constituicao: 12,
-            inteligencia: 16,
-            sabedoria: 13,
-            carisma: 11
-          },
-          habilidades: ['Bola de Fogo', 'Mísseis Mágicos', 'Escudo']
-        },
-        '2': {
-          id: '2',
-          nome: 'Cyberpunk - Teste',
-          sistema: 'cyberpunk',
-          classe: 'Netrunner',
-          atributos: {
-            tech: 8,
-            reflexos: 6,
-            legal: 4,
-            corpo: 5,
-            inteligencia: 9,
-            presenca: 6
-          },
-          habilidades: ['Hacking', 'Programação', 'Eletrônica']
+      const token = localStorage.getItem('token');
+      const res = await fetch(`http://localhost:3000/api/fichas/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      };
+      });
 
-      const fichaData = fichasMock[id];
-      if (fichaData) {
-        setFicha(fichaData);
-      } else {
-        alert('Ficha não encontrada.');
-        router.push('/hub');
+      if (!res.ok) {
+        throw new Error('Ficha não encontrada ou não autorizada');
       }
-      
-      setLoading(false);
+
+      const fichaData = await res.json();
+      setFicha(fichaData);
     } catch (error) {
       console.error('Erro ao buscar ficha:', error);
       alert('Erro ao carregar ficha.');
       router.push('/hub');
+    } finally {
+      setLoading(false);
     }
   };
 

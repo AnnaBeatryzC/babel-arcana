@@ -3,6 +3,7 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
+const { z } = require('zod');
 const app = express();
 
 app.use(express.json());
@@ -11,49 +12,47 @@ app.use(cors());
 // Chave para os tokens JWT
 const CHAVE_ACESSO = 'chave_acesso';
 
+const registerSchema = z.object({
+  nome: z.string().min(1, { message: 'O nome é obrigatório' }),
+  email: z.string().email({ message: 'E-mail inválido' }),
+  senha: z.string().min(4, { message: 'A senha deve ter no mínimo 4 caracteres' }),
+  confirmarSenha: z.string(),
+}).refine(data => data.senha === data.confirmarSenha, {
+  message: 'As senhas não coincidem',
+  path: ['confirmarSenha'],
+});
+
 app.get('/', (req, res) => {
     res.send('teste backend');
 });
 
 // Rota para cadastro de usuário
 app.post('/api/cadastro', (req, res) => {
-    const {nome, email, senha, confirmarSenha} = req.body;
+    try {
+        const { nome, email, senha, confirmarSenha } = registerSchema.parse(req.body);
 
-    // 1º validação: se todos os campos foram preenchidos
-    if(!nome || !email || !senha || !confirmarSenha){
-        return res.status(400).json({mensagem: 'Todos os campos são obrigatórios.'});
+        const usuarios = JSON.parse(fs.readFileSync('usuarios.json'));
+
+        const usuarioExistente = usuarios.find((u) => u.email === email);
+
+        if(usuarioExistente){
+            return res.status(409).json({mensagem: 'Email já cadastrado.'});
+        }
+
+        const senhaCriptografada = bcrypt.hashSync(senha, 10);
+
+        const novoUsuario = {nome, email, senha: senhaCriptografada};
+
+        usuarios.push(novoUsuario);
+        fs.writeFileSync('usuarios.json', JSON.stringify(usuarios, null, 2));
+
+        res.status(201).json({mensagem: 'Usuário cadastrado com sucesso.'});
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({ mensagem: 'Dados inválidos', erros: error.errors });
+        }
+        res.status(500).json({ mensagem: 'Erro interno do servidor' });
     }
-
-    const usuarios = JSON.parse(fs.readFileSync('usuarios.json'));
-
-    // 2º validação: verifica se o email já existe
-    const usuarioExistente = usuarios.find((u) => u.email === email);
-
-    if(usuarioExistente){
-        return res.status(409).json({mensagem: 'Email já cadastrado.'});
-    }
-
-    // 3º validação: senha com no mínimo 4 dígitos
-    if(senha.length < 4){
-        return res.status(400).json({mensagem: 'A senha deve ter no mínimo 4 dígitos.'});
-    }
-
-    // 4º validação: senha e confirmação de senha devem ser iguais
-    if(senha !== confirmarSenha){
-        return res.status(400).json({mensagem: 'A confirmação de senha não confere.'});
-    }
-
-    // Criptografa a senha
-    const senhaCriptografada = bcrypt.hashSync(senha, 10);
-
-    // Cria o novo usuário
-    const novoUsuario = {nome, email, senha: senhaCriptografada};
-
-    // Adiciona à lista e salva no arquivo
-    usuarios.push(novoUsuario);
-    fs.writeFileSync('usuarios.json', JSON.stringify(usuarios, null, 2));
-
-    res.status(201).json({mensagem: 'Usuário cadastrado com sucesso.'});
 });
 
 // Rota para login
