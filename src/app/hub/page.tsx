@@ -30,36 +30,20 @@ export default function HubPage() {
 
   const fetchUserFichas = async () => {
     try {
-      // Dados mockados - substitua pela API real
-      setFichas([
-        {
-          id: '1',
-          nome: 'D&D - Teste',
-          sistema: 'dnd',
-          nivel: '5',
-          classe: 'Maga'
-        },
-        {
-          id: '2',
-          nome: 'Cyberpunk - Teste',
-          sistema: 'cyberpunk',
-          classe: 'Netrunner'
-        },
-        {
-          id: '3',
-          nome: 'Call of Cthulhu - Teste',
-          sistema: 'cthulhu',
-          sanidade: '47%'
-        },
-        {
-          id: '4',
-          nome: 'Vampiro - Teste',
-          sistema: 'vampiro',
-          cla: 'Toreador'
+      const token = localStorage.getItem('token');
+      const res = await fetch('http://localhost:3000/api/fichas', {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      ]);
+      });
+
+      if (!res.ok) throw new Error('Erro ao buscar fichas');
+
+      const data = await res.json();
+      setFichas(data);
     } catch (error) {
       console.error('Erro ao buscar fichas:', error);
+      alert('Erro ao carregar fichas.');
     }
   };
 
@@ -85,18 +69,10 @@ export default function HubPage() {
   };
 
   const renderFichaInfo = (ficha: Ficha) => {
-    if (ficha.nivel && ficha.classe) {
-      return `Nível ${ficha.nivel} • ${ficha.classe}`;
-    }
-    if (ficha.classe) {
-      return `Classe: ${ficha.classe}`;
-    }
-    if (ficha.sanidade) {
-      return `Sanidade: ${ficha.sanidade}`;
-    }
-    if (ficha.cla) {
-      return `Clã: ${ficha.cla}`;
-    }
+    if (ficha.nivel && ficha.classe) return `Nível ${ficha.nivel} • ${ficha.classe}`;
+    if (ficha.classe) return `Classe: ${ficha.classe}`;
+    if (ficha.sanidade) return `Sanidade: ${ficha.sanidade}`;
+    if (ficha.cla) return `Clã: ${ficha.cla}`;
     return '';
   };
 
@@ -111,7 +87,6 @@ export default function HubPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4 flex flex-col">
       <div className="max-w-6xl mx-auto flex-grow">
-        {/* Header */}
         <div className="flex justify-between items-center mb-8 pt-8">
           <h1 className="text-4xl font-bold text-white">
             Suas fichas, {user?.nome || 'Usuário'}!
@@ -132,7 +107,6 @@ export default function HubPage() {
           </div>
         </div>
 
-        {/* Grid de Fichas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {fichas.map((ficha) => (
             <div
@@ -145,7 +119,6 @@ export default function HubPage() {
             </div>
           ))}
           
-          {/* Card Nova Ficha */}
           <div
             className="p-6 rounded-lg shadow-lg transition-transform hover:scale-105 cursor-pointer bg-gradient-to-br from-green-600 to-green-800 text-white border-2 border-dashed border-green-400 flex items-center justify-center min-h-[120px]"
             onClick={() => router.push('/ficha/nova')}

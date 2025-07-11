@@ -42,9 +42,9 @@ export default function LoginForm() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.email || !formData.senha) {
       alert('Por favor, preencha todos os campos obrigatórios');
       return;
@@ -61,18 +61,53 @@ export default function LoginForm() {
       }
     }
 
-    // Mock login/register logic
-    const userData = {
-      id: '1',
-      nome: formData.nome || 'Usuário Teste',
-      email: formData.email
-    };
-    const token = 'mock-token-' + Date.now();
-    
-    login(token, userData);
-    router.push('/hub');
-  };
+    try {
+      const endpoint = isRegister
+        ? 'http://localhost:3000/api/cadastro'
+        : 'http://localhost:3000/api/login';
 
+      const payload = isRegister
+        ? {
+            nome: formData.nome,
+            email: formData.email,
+            senha: formData.senha,
+            confirmarSenha: formData.confirmarSenha,
+          }
+        : {
+            email: formData.email,
+            senha: formData.senha,
+          };
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.mensagem || 'Erro ao enviar dados');
+        return;
+      }
+
+      if (isRegister) {
+        alert('Cadastro realizado com sucesso! Faça login.');
+        router.push('/login');
+      } else {
+        const userData = {
+          id: 'temp-id',
+          nome: formData.nome || 'Usuário',
+          email: formData.email
+        };
+        login(data.token, userData);
+        router.push('/hub');
+      }
+    } catch (err) {
+      alert('Erro de rede ao enviar dados.');
+      console.error(err);
+    }
+  };
   const formOrder = isRegister ? styles.order1 : styles.order2;
   const imageOrder = isRegister ? styles.order2 : styles.order1;
 

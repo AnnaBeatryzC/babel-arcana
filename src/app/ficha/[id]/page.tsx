@@ -22,6 +22,7 @@ interface FichaDetalhes {
 
 export default function FichaPage() {
   const [ficha, setFicha] = useState<FichaDetalhes | null>(null);
+  const [racasDisponiveis, setRacasDisponiveis] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const router = useRouter();
@@ -64,6 +65,19 @@ export default function FichaPage() {
         await fetchFichaData(fichaId);
       }
     };
+
+    const fetchRacas = async () => {
+      try {
+        const res = await fetch('https://www.dnd5eapi.co/api/races');
+        const data = await res.json();
+        const nomes = data.results.map((r: { name: string }) => r.name);
+        setRacasDisponiveis(nomes);
+      } catch (error) {
+        console.error('Erro ao carregar raças da API externa:', error);
+      }
+    };
+
+    fetchRacas();
 
     fetchData();
   }, [fichaId, router]);
@@ -126,36 +140,30 @@ export default function FichaPage() {
     if (!ficha) return;
 
     try {
-      // TODO: Implementar salvamento real
-      console.log('Salvando ficha:', ficha);
-      
-      if (fichaId === 'nova') {
-        alert('Nova ficha criada com sucesso!');
-        router.push('/hub');
-      } else {
-        alert('Ficha salva com sucesso!');
-        setEditMode(false);
-      }
+      const token = localStorage.getItem('token');
+      const method = fichaId === 'nova' ? 'POST' : 'PUT';
+      const url = fichaId === 'nova'
+        ? 'http://localhost:3000/api/fichas'
+        : `http://localhost:3000/api/fichas/${fichaId}`;
 
-      /* 
-      // Implementação real da API:
-      const response = await fetch(`/api/fichas/${fichaId === 'nova' ? '' : fichaId}`, {
-        method: fichaId === 'nova' ? 'POST' : 'PUT',
+      const res = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(ficha)
       });
 
-      if (!response.ok) {
-        throw new Error('Erro ao salvar ficha.');
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.mensagem || 'Erro ao salvar ficha.');
+        return;
       }
 
-      const data = await response.json();
-      setFicha(data);
-      setEditMode(false);
-      */
+      alert(fichaId === 'nova' ? 'Nova ficha criada com sucesso!' : 'Ficha atualizada com sucesso!');
+      router.push('/hub');
     } catch (error) {
       console.error('Erro ao salvar ficha:', error);
       alert('Erro ao salvar ficha.');
@@ -167,25 +175,23 @@ export default function FichaPage() {
 
     if (confirm('Tem certeza que deseja excluir esta ficha?')) {
       try {
-        // TODO: Implementar exclusão real
-        alert('Ficha excluída com sucesso!');
-        router.push('/hub');
+        const token = localStorage.getItem('token');
 
-        /* 
-        // Implementação real da API:
-        const response = await fetch(`/api/fichas/${fichaId}`, {
+        const res = await fetch(`http://localhost:3000/api/fichas/${fichaId}`, {
           method: 'DELETE',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            Authorization: `Bearer ${token}`
           }
         });
 
-        if (!response.ok) {
-          throw new Error('Erro ao excluir ficha.');
+        if (!res.ok) {
+          const errorData = await res.json();
+          alert(errorData.mensagem || 'Erro ao excluir ficha.');
+          return;
         }
 
+        alert('Ficha excluída com sucesso!');
         router.push('/hub');
-        */
       } catch (error) {
         console.error('Erro ao excluir ficha:', error);
         alert('Erro ao excluir ficha.');
@@ -346,12 +352,18 @@ export default function FichaPage() {
                   <div>
                     <label className="block text-gray-300 mb-1">Raça:</label>
                     {editMode ? (
-                      <input
-                        type="text"
+                      <select
                         value={ficha.raca || ''}
                         onChange={(e) => updateFicha('raca', e.target.value)}
                         className="w-full bg-white/10 text-white px-3 py-2 rounded border border-gray-600 outline-none"
-                      />
+                      >
+                        <option value="">Selecione uma raça</option>
+                        {racasDisponiveis.map((raca) => (
+                          <option key={raca} value={raca}>
+                            {raca}
+                          </option>
+                        ))}
+                      </select>
                     ) : (
                       <p className="text-white">{ficha.raca}</p>
                     )}
