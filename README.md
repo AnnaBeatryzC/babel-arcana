@@ -1,67 +1,54 @@
 # Babel Arcana
 
-Babel Arcana é uma plataforma para criar e manter seu CODEX de fichas de RPG de mesa. Com ele, você pode criar, gerenciar e acessar suas fichas de personagem de D&D 5e, Cyberpunk 2020, Call of Cthulhu e Vampiro: A Máscara, tudo em um só lugar.
+Este é um projeto desenvolvido em [Next.js](https://nextjs.org) com backend em [Express.js](https://expressjs.com), autenticação JWT, uso de API externa e armazenamento local em arquivos JSON.
 
-## O Problema
+## Descrição do Projeto
 
-Jogadores de RPG de mesa frequentemente precisam lidar com várias fichas de personagem, seja em papel ou em arquivos digitais espalhados pelo computador. Isso pode levar à perda de fichas, dificuldade de acesso e falta de organização. Além disso, a necessidade de consultar livros e manuais para regras específicas pode ser demorada e atrapalhar o andamento do jogo.
-
-## A Solução
-
-Babel Arcana resolve esse problema centralizando todas as suas fichas de personagem em uma única plataforma online. Com uma interface intuitiva e amigável, você pode:
-
-*   **Criar e gerenciar fichas:** Crie novas fichas para diferentes sistemas de RPG, edite-as a qualquer momento e mantenha tudo organizado.
-*   **Acessar de qualquer lugar:** Suas fichas ficam salvas na nuvem, permitindo que você as acesse de qualquer dispositivo com acesso à internet.
-*   **Consultar informações rapidamente:** A integração com a API do D&D 5e permite que você consulte informações sobre raças diretamente na plataforma, agilizando o processo de criação de personagens.
+A aplicação **Babel Arcana** permite a criação, visualização, edição e exclusão de fichas de RPG. Os usuários podem se cadastrar, fazer login e gerenciar suas fichas de forma segura e centralizada. O sistema oferece integração com uma API externa de D&D ([D&D 5e API](https://www.dnd5eapi.co)) para sugestão de classes e raças.
 
 ## Tecnologias Utilizadas
 
-*   **Front-end:**
-    *   [Next.js](https://nextjs.org/) - Framework React para construção de interfaces de usuário.
-    *   [React](https://react.dev/) - Biblioteca para construção de interfaces de usuário.
-    *   [TypeScript](https://www.typescriptlang.org/) - Superset de JavaScript que adiciona tipagem estática.
-    *   [Tailwind CSS](https://tailwindcss.com/) - Framework CSS para estilização.
-    *   [Zod](https://zod.dev/) - Biblioteca para validação de esquemas.
-*   **Back-end:**
-    *   [Node.js](https://nodejs.org/) - Ambiente de execução JavaScript do lado do servidor.
-    *   [Express](https://expressjs.com/) - Framework para construção de APIs.
-    *   [JSON Web Tokens (JWT)](https://jwt.io/) - Para autenticação e autorização de usuários.
-    *   [bcryptjs](https://www.npmjs.com/package/bcryptjs) - Para criptografia de senhas.
+- **Frontend**: Next.js, React, TypeScript, Tailwind CSS
+- **Backend**: Node.js, Express.js, JWT, Zod
+- **Armazenamento**: arquivos `.json` (usuarios.json e fichas.json)
+- **API externa**: https://www.dnd5eapi.co
 
-## Como Executar o Projeto
+## Problema que o projeto resolve
 
-1.  **Clone o repositório:**
+O Babel Arcana resolve a dificuldade de jogadores de RPG em organizar e manter suas fichas digitalmente. Em vez de utilizar papéis, os usuários passam a contar com uma interface segura para acompanhar a evolução dos personagens.
 
-    ```bash
-    git clone https://github.com/seu-usuario/babel-arcana.git
-    ```
+## Por que esse é um problema importante?
 
-2.  **Instale as dependências do front-end:**
+A perda de fichas pode prejudicar sessões inteiras de RPG. Ter uma ferramenta acessível e compatível com diferentes sistemas de RPG contribui para uma experiência mais imersiva, especialmente em jogos longos.
 
-    ```bash
-    cd babel-arcana
-    npm install
-    ```
+### Requisitos
 
-3.  **Instale as dependências do back-end:**
+- Node.js instalado
+- npm
 
-    ```bash
-    cd backend
-    npm install
-    ```
+### Instalação
 
-4.  **Inicie o servidor de desenvolvimento do front-end:**
+1. Clone o repositório:
+git clone https://github.com/leal-k/trabXDES03
 
-    ```bash
-    cd ..
-    npm run dev
-    ```
+2. Instale as dependências do frontend:
+cd babel-arcana
+npm install
 
-5.  **Inicie o servidor do back-end:**
+3. Instale o backend:
+cd backend
+npm install
+npm start
 
-    ```bash
-    cd backend
-    node index.js
-    ```
+4. Em outro terminal, rode o frontend:
+cd ..
+npm run dev
 
-Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
+Abra http://localhost:3001 no navegador para ver o resultado.
+
+### Autores
+Este projeto foi desenvolvido como parte da disciplina de Programação Web:
+
+- Anna Beatryz Costa – Frontend
+- Laís Padovan – Backend
+- Kaique Leal – Backend
