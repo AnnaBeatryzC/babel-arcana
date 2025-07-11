@@ -122,8 +122,8 @@ const fichasRouter = require('./routes/fichas');
 app.use('/api/fichas', fichasRouter);
 
 // Inicia o servidor
-app.listen(3000, () => {
-    console.log('Servidor rodando na porta 3000');
+app.listen(5000, () => {
+    console.log('Servidor rodando na porta 5000');
 });
 
 // Biblioteca 'jsonwebtoken' (JWT):

@@ -6,5 +6,13 @@
     "classe": "elfo",
     "nivel": 1,
     "raca": "Dwarf"
+  },
+  {
+    "id": "1752232211493",
+    "email": "anna@teste.com",
+    "nome": "Alteradoooo",
+    "classe": "Bardo",
+    "nivel": 2,
+    "raca": "Gnome"
   }
 ]

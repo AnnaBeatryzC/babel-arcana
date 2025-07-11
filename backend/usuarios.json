@@ -18,5 +18,10 @@
     "nome": "maria",
     "email": "maria@gmail.com",
     "senha": "$2b$10$qAPTm2M9WA/x/Fz6RLMY1uDEsbdjgxRTv1hF9ExlbNfPvV590nGBG"
+  },
+  {
+    "nome": "aa",
+    "email": "anna@teste.com",
+    "senha": "$2b$10$Bx81wtEPhskI2siiAu5Nje0AjORBS9..9ihRyNhZvvOFawtzykTo."
   }
 ]

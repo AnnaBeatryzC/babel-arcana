@@ -31,7 +31,7 @@ export default function HubPage() {
   const fetchUserFichas = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3000/api/fichas', {
+      const res = await fetch('http://localhost:5000/api/fichas', {
         headers: {
           Authorization: `Bearer ${token}`
         }

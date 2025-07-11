@@ -7,7 +7,7 @@ import { useAuth } from '@/componentes/auth/AuthProvider';
 import AuthImage from './AuthImage';
 import styles from './loginForm.module.css';
 import { loginSchema, registerSchema } from '@/lib/schemas';
-import { ZodError } from 'zod';
+import { ZodError, ZodIssue } from 'zod';
 
 export default function LoginForm() {
   const [isRegister, setIsRegister] = useState(false);
@@ -56,7 +56,7 @@ export default function LoginForm() {
     } catch (error) {
       if (error instanceof ZodError) {
         const fieldErrors: { [key: string]: string } = {};
-        error.errors.forEach((err) => {
+        error.issues.forEach((err: ZodIssue) => {
           if (err.path[0]) {
             fieldErrors[err.path[0].toString()] = err.message;
           }
@@ -69,8 +69,8 @@ export default function LoginForm() {
 
     try {
       const endpoint = isRegister
-        ? 'http://localhost:3000/api/cadastro'
-        : 'http://localhost:3000/api/login';
+        ? 'http://localhost:5000/api/cadastro'
+        : 'http://localhost:5000/api/login';
 
       const payload = isRegister
         ? {

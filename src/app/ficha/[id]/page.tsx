@@ -85,7 +85,7 @@ export default function FichaPage() {
   const fetchFichaData = async (id: string) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/api/fichas/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/fichas/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -113,8 +113,8 @@ export default function FichaPage() {
       const token = localStorage.getItem('token');
       const method = fichaId === 'nova' ? 'POST' : 'PUT';
       const url = fichaId === 'nova'
-        ? 'http://localhost:3000/api/fichas'
-        : `http://localhost:3000/api/fichas/${fichaId}`;
+        ? 'http://localhost:5000/api/fichas'
+        : `http://localhost:5000/api/fichas/${fichaId}`;
 
       const res = await fetch(url, {
         method,
@@ -147,7 +147,7 @@ export default function FichaPage() {
       try {
         const token = localStorage.getItem('token');
 
-        const res = await fetch(`http://localhost:3000/api/fichas/${fichaId}`, {
+        const res = await fetch(`http://localhost:5000/api/fichas/${fichaId}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`
