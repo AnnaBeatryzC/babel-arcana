@@ -166,9 +166,21 @@ export default function LoginForm() {
 
           {isRegister && (
             <div className={styles.inputGroup}>
-              <input type="password" id="confirmarSenha" placeholder="Confirmar Senha" value={formData.confirmarSenha} onChange={handleInputChange} autoComplete="new-password" className={styles.input} />
+              <input
+                type="password"
+                id="confirmarSenha"
+                placeholder="Confirmar Senha"
+                value={formData.confirmarSenha}
+                onChange={handleInputChange}
+                autoComplete="new-password"
+                className={styles.input}
+              />
               {errors.confirmarSenha && <p className={styles.error}>{errors.confirmarSenha}</p>}
             </div>
+          )}
+
+          {loginError && (
+            <p className={styles.error}>{loginError.replace('.', '')}</p>
           )}
 
           <button type="submit" className={styles.submitButton}>

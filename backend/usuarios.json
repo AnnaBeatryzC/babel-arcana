@@ -38,5 +38,10 @@
     "nome": "guba",
     "email": "guba@hotmail.com",
     "senha": "$2b$10$Bq2A5cwTcV1vS9Z9pZlSI.Wl6u8pIMl5JTcPOgZuP9f6M.tvzP1km"
+  },
+  {
+    "nome": "Lais",
+    "email": "lpadovan@gmail.com",
+    "senha": "$2b$10$gjigObHYiriqagZ4JTGL6OAR7Fi7URaniPRbbn236OuobJ2AO4fGq"
   }
 ]

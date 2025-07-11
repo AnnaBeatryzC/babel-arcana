@@ -52,5 +52,23 @@
       "carisma": 10
     },
     "habilidades": []
+  },
+  {
+    "id": "1752259736538",
+    "email": "guba@hotmail.com",
+    "nome": "Ficha 1",
+    "classe": "Loure",
+    "nivel": 18,
+    "raca": "Gnome",
+    "sistema": "dnd",
+    "atributos": {
+      "forca": 8,
+      "destreza": 10,
+      "constituicao": 8,
+      "inteligencia": 10,
+      "sabedoria": 14,
+      "carisma": 10
+    },
+    "habilidades": []
   }
 ]
