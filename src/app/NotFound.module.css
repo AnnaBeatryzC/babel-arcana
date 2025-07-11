@@ -1,0 +1,113 @@
+/* @font-face {
+  font-family: 'Cinzel';
+  src: url('/fonts/Cinzel-Regular.woff2') format('woff2'),
+       url('/fonts/Cinzel-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+
+/* ===== Babel Arcana 404 Page Theme ===== */
+
+:root {
+  --light-gold: #FAD870;
+  --gold: #E6A545;
+  --dark-gold: #89602a;
+  --burnt-sienna: #984D3E;
+  --dark-brown: #2e1a0f;
+  --crimson: #E1344E;
+  --dark-indigo: #481C52;
+  --purple: #71478a;
+  --deep-purple: #541A57;
+  --white: #FFFFFF;
+  --dark-whithe: #ffe293;
+  --black: #000000;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Cinzel', serif;
+  color: var(--light-gold);
+  background: #1c0e1d;
+}
+
+.videoBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: sepia(1) contrast(0.8);
+}
+
+.textBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  max-width: 420px;
+  background: linear-gradient(145deg, var(--dark-indigo), var(--burnt-sienna));
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.textBox h1 {
+  font-family: 'Cinzel', serif;
+  justify-self: center;
+  text-align: center;
+  font-size: 5vh;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 2vh;
+  color: var(--dark-whithe);
+  text-shadow: 1px 1px 1px #000;
+}
+
+.textBox p {
+  font-family: 'Just Me Again Down Here', cursive;
+  font-size: 2.5vh;
+  line-height: 1.2;
+  color: #fdf5e6;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.emoji {
+  font-size: 3rem;
+}
+
+.backButton {
+  font-family: 'Cinzel', serif;
+  font-size: 2.5vh;
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: var(--gold);
+  color: #2e1a0f;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.backButton:hover {
+  background: var(--light-gold);
+  transform: scale(1.05);
+}
+
+

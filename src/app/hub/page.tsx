@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth, useProtectedRoute } from '@/componentes/auth/AuthProvider';
+import Footer from '@/componentes/Footer/Footer';
 
 interface Ficha {
   id: string;
@@ -108,8 +109,8 @@ export default function HubPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4 flex flex-col">
+      <div className="max-w-6xl mx-auto flex-grow">
         {/* Header */}
         <div className="flex justify-between items-center mb-8 pt-8">
           <h1 className="text-4xl font-bold text-white">
@@ -156,6 +157,7 @@ export default function HubPage() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

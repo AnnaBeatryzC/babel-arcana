@@ -13,7 +13,11 @@
 # testing
 /coverage
 
+# other files
+*.Identifier
+
 # next.js
+../.next
 /.next/
 /out/
 

@@ -86,39 +86,41 @@ app.post('/api/login', (req, res) => {
 });
 
 // Middleware para autenticar o token
-function autenticarToken(req, res, next){
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+// function autenticarToken(req, res, next){
+//     const authHeader = req.headers['authorization'];
+//     const token = authHeader && authHeader.split(' ')[1];
 
-    if(!token){
-        return res.status(401).json({mensagem: 'Token não fornecido.'});
-    }
+//     if(!token){
+//         return res.status(401).json({mensagem: 'Token não fornecido.'});
+//     }
 
-    jwt.verify(token, CHAVE_ACESSO, (err, usuarioDecodificado) => {
-        if(err){
-            return res.status(403).json({mensagem: 'Token inválido ou expirado.'});
-        }
+//     jwt.verify(token, CHAVE_ACESSO, (err, usuarioDecodificado) => {
+//         if(err){
+//             return res.status(403).json({mensagem: 'Token inválido ou expirado.'});
+//         }
 
-        req.usuario = usuarioDecodificado; // Salva info do usuário no req para usar na rota
-        next();
-    });
-}
+//         req.usuario = usuarioDecodificado; // Salva info do usuário no req para usar na rota
+//         next();
+//     });
+// }
 
 // Rota privada: /api/fichas
-app.get('/api/fichas', autenticarToken, (req, res) => {
-    // Lê os usuários para pegar o nome completo (poderia vir do token também)
-    const usuarios = JSON.parse(fs.readFileSync('usuarios.json'));
-    const usuario = usuarios.find((u) => u.email === req.usuario.email);
+// app.get('/api/fichas', autenticarToken, (req, res) => {
+//     // Lê os usuários para pegar o nome completo (poderia vir do token também)
+//     const usuarios = JSON.parse(fs.readFileSync('usuarios.json'));
+//     const usuario = usuarios.find((u) => u.email === req.usuario.email);
 
-    if(!usuario){
-        return res.status(404).json({mensagem: 'Usuário não encontrado.'});
-    }
+//     if(!usuario){
+//         return res.status(404).json({mensagem: 'Usuário não encontrado.'});
+//     }
 
-    res.json({
-        nome: usuario.nome,
-    });
-});
+//     res.json({
+//         nome: usuario.nome,
+//     });
+// });
 
+const fichasRouter = require('./routes/fichas');
+app.use('/api/fichas', fichasRouter);
 
 // Inicia o servidor
 app.listen(3000, () => {

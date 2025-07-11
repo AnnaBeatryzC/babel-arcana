@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import Footer from '@/componentes/Footer/Footer';
 
 interface FichaDetalhes {
   id: string;
@@ -228,8 +229,8 @@ export default function FichaPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4 flex flex-col">
+      <div className="max-w-4xl mx-auto flex-grow">
         {/* Header */}
         <div className="flex justify-between items-center mb-8 pt-8">
           <div className="flex items-center space-x-4">
@@ -401,6 +402,7 @@ export default function FichaPage() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

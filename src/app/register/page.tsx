@@ -1,9 +1,10 @@
 import React from 'react';
 import LoginForm from '@/componentes/login-form/loginForm';
+import GlassCard from '@/componentes/GlassCard/GlassCard';
 
 export default function RegisterPage() {
   return (
-    <div className="login-page min-h-screen relative">
+    <div className="login-page min-h-screen relative flex items-center justify-center">
       <video
         autoPlay
         muted
@@ -13,9 +14,9 @@ export default function RegisterPage() {
         <source src="/video/fumaca.mp4" type="video/mp4" />
       </video>
 
-      <div className="relative z-10">
+      <GlassCard>
         <LoginForm />
-      </div>
+      </GlassCard>
     </div>
   );
 }

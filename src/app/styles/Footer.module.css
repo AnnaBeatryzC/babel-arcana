@@ -1,0 +1,30 @@
+.footer {
+  background: linear-gradient(135deg, #6c2f91, #ffcd44);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.footerContent {
+  text-align: center;
+}
+
+.dice {
+  width: 60px;
+  height: 60px;
+  background: url('/path-to-dice-image.png') no-repeat center;
+  background-size: contain;
+  margin-bottom: 10px;
+}
+
+.footerText {
+  font-size: 18px;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+}
+
+.heart {
+  color: red;
+}

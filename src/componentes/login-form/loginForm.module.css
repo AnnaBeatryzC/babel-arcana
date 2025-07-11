@@ -1,0 +1,149 @@
+:root {
+  --light-gold: #FAD870;
+  --gold: #E6A545;
+  --dark-gold: #89602a;
+  --burnt-sienna: #984D3E;
+  --dark-brown: #2e1a0f;
+  --crimson: #E1344E;
+  --dark-indigo: #481C52;
+  --purple: #71478a;
+  --deep-purple: #541A57;
+  --white: #FFFFFF;
+  --dark-whithe: #ffe293;
+  --black: #000000;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.title {
+  font-family: 'Cinzel', serif;
+  color: var(--dark-whithe);
+  font-size: 3rem; /* 36px */
+  font-weight: 700;
+  margin-bottom: 2rem; /* 32px */
+  display: flex;
+  align-items: center;
+  text-shadow: 2px 2px 2px #000;
+}
+
+.titleIcon {
+  margin-right: 0.5rem; /* 8px */
+}
+
+.toggleContainer {
+  margin-bottom: 1.5rem; /* 24px */
+  display: flex;
+  gap: 0.5rem; /* Espaçamento entre os botões */
+}
+
+.toggleButton {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
+  flex: 1; /* Faz com que os botões ocupem o mesmo espaço */
+  text-align: center; /* Centraliza o texto dentro do botão */
+}
+
+.toggleButtonInactive {
+  background-color: var(--gold); /* gold */
+  color: var(--dark-brown); /* dark-brown */
+}
+
+.toggleButtonInactive:hover {
+  background-color: var(--light-gold); /* light-gold */
+  transform: scale(1.05);
+}
+
+.toggleButtonActive {
+  background-color: var(--light-gold); /* light-gold */
+  color: var(--dark-brown); /* dark-brown */
+  transform: scale(1.05);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 16px */
+  max-width: 24rem; /* 384px */
+}
+
+.input {
+  font-family: 'Cinzel', serif;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #d1d5db; /* gray-300 */
+  transition: box-shadow 0.2s, border-color 0.2s;
+  color: var(--dark-brown); /* Cor do texto do input */
+}
+
+.input::placeholder {
+  color: rgba(46, 26, 15, 0.7); /* Cor do placeholder */
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--gold); /* ring-2 com cor gold */
+  border-color: transparent;
+}
+
+.submitButton {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--gold); /* gold */
+  color: var(--dark-brown); /* dark-brown */
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.submitButton:hover {
+  background-color: var(--light-gold); /* light-gold */
+  transform: scale(1.05);
+}
+
+.imageContainer {
+  flex: 1;
+}
+
+.image {
+  margin: auto;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem; /* 32px */
+    padding: 4rem 1.5rem;
+    min-height: 100vh;
+    font-family: 'Cinzel', serif; /* Aplica a fonte principal */
+    color: var(--light-gold); /* Cor padrão do texto */
+}
+
+@media (min-width: 768px) {
+    .mainContainer {
+        flex-direction: row;
+        padding-left: 5rem; /* px-20 */
+        padding-right: 5rem; /* px-20 */
+    }
+
+    .order1 { order: 1; }
+    .order2 { order: 2; }
+
+    .order1 { order: 1; }
+    .order2 { order: 2; }
+}

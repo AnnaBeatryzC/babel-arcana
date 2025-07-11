@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sistema Interativo de Fichas RPG</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Caesar+Dressing&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet"> -->
+</head>
+
+<body class="login-page">
+
+     <video autoplay muted loop class="fumacaFundo">
+        <source src="video/fumaca.mp4" type="video/mp4">
+    </video>
+
+    <div class="container">
+        <h1>
+            <img src="img/d20.png" alt="d20" class="logo-dado">
+            Fichas RPG
+        </h1>
+
+        <div class="form-toggle">
+        <button id="login-button" class="active">Login</button>
+        <button id="register-button">Cadastrar</button>
+        </div>
+
+        <form id="login-form">
+        <input type="text" id="nome" placeholder="Nome" style="display: none;" />
+        <input type="email" placeholder="Email" required/>
+        <input type="password" placeholder="Senha" required />
+        <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <script>
+        const botaoLogin = document.getElementById('login-button');
+        const botaoRegistro = document.getElementById('register-button');
+        const campoNome = document.getElementById('nome');
+        const form = document.getElementById('login-form');
+
+        botaoLogin.addEventListener('click', () => {
+        campoNome.style.display = 'none'; // faz o campo nome sumir, não precisa dele pra logar
+        botaoLogin.classList.add('active');
+        botaoRegistro.classList.remove('active');
+        });
+
+        botaoRegistro.addEventListener('click', () => {
+        campoNome.style.display = 'block';
+        botaoRegistro.classList.add('active');
+        botaoLogin.classList.remove('active');
+        });
+    </script>
+</body>
+<!-- <footer>
+    <p>Feito com &heartsuit; por <a href="https://github.com/leal-k/trabXDES03">Nyarlathotep</a></p>
+</footer> -->
+</html>
